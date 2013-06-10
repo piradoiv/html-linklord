@@ -19,6 +19,9 @@ class Parser
     {
         $this->crawler->filter('a')->each(
             function ($node, $i) {
+                #$node->isNoFollow = false;
+                #$node->isImage    = true;
+
                 array_push($this->links, $node);
             }
         );
