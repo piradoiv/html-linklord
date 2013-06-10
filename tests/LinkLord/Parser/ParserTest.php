@@ -2,11 +2,13 @@
 
 namespace PiradoIV\Html\LinkLord\Tests;
 
+use \Symfony\Component\DomCrawler\Crawler;
+
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTrueIsTrue()
+    public function testDomCrawlerIsAvailable()
     {
-        $true = true;
-        $this->assertEquals(true, $true);
+        $dom = new Crawler();
+        $this->assertInstanceOf('\Symfony\Component\DomCrawler\Crawler', $dom);
     }
 }
