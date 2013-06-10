@@ -36,4 +36,13 @@ HTML;
 
         $this->assertTrue($links[1]->isImage, true);
     }
+
+    public function testParserWordCounterWorks()
+    {
+        $parser = new Parser('<p>Ola k ase</p>');
+        $this->assertEquals(3, $parser->getWordsCounter());
+
+        $parser = new Parser('Ola k ase');
+        $this->assertEquals(0, $parser->getWordsCounter());
+    }
 }
