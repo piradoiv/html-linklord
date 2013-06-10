@@ -1,3 +1,6 @@
 {
-    "name": "LinkLord"
+    "name": "LinkLord",
+    "require": {
+        "symfony/dom-crawler": "2.*"
+    }
 }
