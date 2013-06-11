@@ -25,10 +25,7 @@ class Parser
             function ($node, $i) {
                 $node->isNoFollow = $this->isLinkNoFollow($node);
                 $node->isImage    = $this->isLinkImage($node);
-                $node->anchorText = $node->text();
-                if ($node->isImage) {
-                    $node->anchorText = "[IMAGE]";
-                }
+                $node->anchorText = $this->getAnchorText($node);
 
                 array_push($this->links, $node);
             }
@@ -66,6 +63,21 @@ class Parser
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns the anchor text of a link's node
+     * @param  node $node The link node to use
+     * @return string     The anchor text, [IMAGE] if it's an image
+     */
+    private function getAnchorText($node)
+    {
+        $anchorText = $node->text();
+        if ($node->isImage) {
+            $anchorText = "[IMAGE]";
+        }
+
+        return $anchorText;
     }
 
     /**
