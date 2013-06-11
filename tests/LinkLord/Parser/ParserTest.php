@@ -44,5 +44,8 @@ HTML;
 
         $parser = new Parser('Ola k ase');
         $this->assertEquals(0, $parser->getWordsCounter());
+
+        $parser = new Parser('Ola k ase. <p>Programando o ke ase?</p>');
+        $this->assertEquals(4, $parser->getWordsCounter());
     }
 }
