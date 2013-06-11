@@ -52,4 +52,13 @@ HTML;
         $parser = new Parser('<html><body>Ola k ase. <p>Programando o ke ase?</p></body></html>');
         $this->assertEquals(4, $parser->getWordsCounter());
     }
+
+    public function testParserProvidesAnchorText()
+    {
+        $parser = new Parser($this->html);
+        $links = $parser->getLinks();
+
+        $this->assertEquals('dolor', $links[0]->anchorText);
+        $this->assertEquals('[IMAGE]', $links[1]->anchorText);
+    }
 }
