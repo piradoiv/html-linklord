@@ -25,6 +25,10 @@ class Parser
             function ($node, $i) {
                 $node->isNoFollow = $this->isLinkNoFollow($node);
                 $node->isImage    = $this->isLinkImage($node);
+                $node->anchorText = $node->text();
+                if ($node->isImage) {
+                    $node->anchorText = "[IMAGE]";
+                }
 
                 array_push($this->links, $node);
             }
