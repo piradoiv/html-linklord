@@ -46,10 +46,10 @@ HTML;
         $parser = new Parser('<p>Ola k ase</p>');
         $this->assertEquals(3, $parser->getWordsCounter());
 
-        $parser = new Parser('Ola k ase');
+        $parser = new Parser('<body>Ola k ase</body>');
         $this->assertEquals(0, $parser->getWordsCounter());
 
-        $parser = new Parser('Ola k ase. <p>Programando o ke ase?</p>');
+        $parser = new Parser('<html><body>Ola k ase. <p>Programando o ke ase?</p></body></html>');
         $this->assertEquals(4, $parser->getWordsCounter());
     }
 }
