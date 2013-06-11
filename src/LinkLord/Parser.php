@@ -15,6 +15,10 @@ class Parser
         $this->links = array();
     }
 
+    /**
+     * Gets an array of links objects from the DOM
+     * @return array An array of link nodes
+     */
     public function getLinks()
     {
         $this->crawler->filter('a')->each(
@@ -29,6 +33,11 @@ class Parser
         return $this->links;
     }
 
+    /**
+     * Checks if a node link has the rel="_nofollow" attribute
+     * @param  node  $node The link node to check
+     * @return boolean     True if it's NoFollow, False otherwise
+     */
     private function isLinkNoFollow($node)
     {
         $rel = strtolower($node->attr('rel'));
@@ -39,6 +48,11 @@ class Parser
         }
     }
 
+    /**
+     * Checks if a link's node contains a children image
+     * @param  node  $node The link node to check
+     * @return boolean     True if it's an image, False otherwise
+     */
     private function isLinkImage($node)
     {
         $img = $node->filter('img');
@@ -50,6 +64,11 @@ class Parser
         }
     }
 
+    /**
+     * Gets an aprox. counter of words on the DOM, it currently just counts
+     * the words inside "P" (Paragraph) tags
+     * @return integer The counter of found words
+     */
     public function getWordsCounter()
     {
         $counter = 0;
