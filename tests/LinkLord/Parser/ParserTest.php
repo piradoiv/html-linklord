@@ -7,7 +7,7 @@ use PiradoIV\Html\LinkLord\Parser;
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
     private $html = <<<HTML
-        <p>Lorem ipsum <a href="#dolor" target="_blank">dolor</a> sit amet</p>
+        <p>Lorem ipsum <a href="#dolor" rel="_nofollow" target="_blank">dolor</a> sit amet</p>
         <p>Wop <a href="#image"><img src="wop.png" /></a></p>
 HTML;
     
@@ -27,6 +27,9 @@ HTML;
         foreach ($links as $link) {
             $this->assertNotNull($link->isNoFollow);
         }
+
+        $this->assertTrue($links[0]->isNoFollow);
+        $this->assertFalse($links[1]->isNoFollow);
     }
 
     public function testParsedLinksDetectsIfIsAnImage()
@@ -34,7 +37,8 @@ HTML;
         $parser = new Parser($this->html);
         $links = $parser->getLinks();
 
-        $this->assertTrue($links[1]->isImage, true);
+        $this->assertFalse($links[0]->isImage);
+        $this->assertTrue($links[1]->isImage);
     }
 
     public function testParserWordCounterWorks()
