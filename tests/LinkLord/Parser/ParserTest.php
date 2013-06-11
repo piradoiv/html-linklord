@@ -61,4 +61,22 @@ HTML;
         $this->assertEquals('dolor', $links[0]->anchorText);
         $this->assertEquals('[IMAGE]', $links[1]->anchorText);
     }
+
+    public function testParserIsAbleToFindMentions()
+    {
+        $html = <<<HTML
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" rel="_nofollow" target="_blank">Pirado IV website</a> sit amet</p>
+        <p>Check it at www.piradoiv.com <a href="#image"><img src="wop.png" /></a></p>
+        <p>One, two, three, piradoiv.com was here!</p>
+HTML;
+
+        $parser = new Parser($this->html);
+        $possibleMentions = array(
+            'piradoiv.com',
+            'www.piradoiv.com',
+            'Pirado IV website'
+        );
+
+        $this->assertEquals(3, $parser->getMentionsFromArray($possibleMentions));
+    }
 }
