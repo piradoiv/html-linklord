@@ -1,5 +1,6 @@
 {
     "name": "piradoiv/linklord",
+    "description": "A micro library to extract link's information from an HTML string",
     "authors": [
         {
             "name": "Ricardo 'Pirado IV' Cruz",
