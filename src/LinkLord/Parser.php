@@ -42,7 +42,7 @@ class Parser
     private function isLinkImage($node)
     {
         $img = $node->filter('img');
-        
+
         if (count($img) != 0) {
             return true;
         } else {
@@ -52,6 +52,13 @@ class Parser
 
     public function getWordsCounter()
     {
-        return 0;
+        $counter = 0;
+
+        foreach ($this->crawler->filter('p') as $p) {
+            $text = $p->textContent;
+            $counter += str_word_count($text);
+        }
+
+        return $counter;
     }
 }
