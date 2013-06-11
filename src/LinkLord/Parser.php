@@ -19,13 +19,39 @@ class Parser
     {
         $this->crawler->filter('a')->each(
             function ($node, $i) {
-                #$node->isNoFollow = false;
-                #$node->isImage    = true;
+                $node->isNoFollow = $this->isLinkNoFollow($node);
+                $node->isImage    = $this->isLinkImage($node);
 
                 array_push($this->links, $node);
             }
         );
 
         return $this->links;
+    }
+
+    private function isLinkNoFollow($node)
+    {
+        $rel = strtolower($node->attr('rel'));
+        if ($rel == '_nofollow') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function isLinkImage($node)
+    {
+        $img = $node->filter('img');
+        
+        if (count($img) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getWordsCounter()
+    {
+        return 0;
     }
 }
