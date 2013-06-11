@@ -96,4 +96,18 @@ class Parser
 
         return $counter;
     }
+
+    public function getMentionsFromArray($possibleMentions = array())
+    {
+        $counter = 0;
+        $text = $this->crawler->text();
+
+        foreach ($possibleMentions as $mention) {
+            $pattern = "/[ ,]{$mention}/i";
+            $matches = array();
+            $counter += preg_match_all($pattern, $text, $matches);
+        }
+
+        return $counter;
+    }
 }
