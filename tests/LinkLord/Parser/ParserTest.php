@@ -70,11 +70,11 @@ HTML;
         <p>One, two, three, piradoiv.com was here!</p>
 HTML;
 
-        $parser = new Parser($this->html);
+        $parser = new Parser($html);
         $possibleMentions = array(
             'piradoiv.com',
             'www.piradoiv.com',
-            'Pirado IV website'
+            'Pirado IV Website'
         );
 
         $this->assertEquals(3, $parser->getMentionsFromArray($possibleMentions));
