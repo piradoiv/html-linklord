@@ -4,4 +4,4 @@ php:
   - 5.3
 
 composer install
-phpunit
+phpunit tests
