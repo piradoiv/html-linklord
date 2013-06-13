@@ -3,4 +3,4 @@ php:
   - 5.4
 
 before_script: composer install --no-interaction --prefer-source
-script: phpunit --colors tests
+script: phpunit --colors --coverage-text tests
