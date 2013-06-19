@@ -69,7 +69,7 @@ class Parser
      * @param  node  $node The link node to check
      * @return boolean     True if it's NoFollow, False otherwise
      */
-    private function isLinkNoFollow($node)
+    public function isLinkNoFollow($node)
     {
         $rel = strtolower($node->attr('rel'));
         if ($rel == '_nofollow') {
@@ -84,7 +84,7 @@ class Parser
      * @param  node  $node The link node to check
      * @return boolean     True if it's an image, False otherwise
      */
-    private function isLinkImage($node)
+    public function isLinkImage($node)
     {
         $img = $node->filter('img');
 
@@ -100,7 +100,7 @@ class Parser
      * @param  node $node The link node to use
      * @return string     The anchor text, [IMAGE] if it's an image
      */
-    private function getAnchorText($node)
+    public function getAnchorText($node)
     {
         $anchorText = $node->text();
         if ($node->isImage) {
