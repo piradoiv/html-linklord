@@ -49,8 +49,8 @@ use \Symfony\Component\DomCrawler\Crawler;
  */
 class Parser
 {
-    private $crawler;
-    private $links;
+    public $crawler;
+    public $links;
 
     /**
      * Constructor of the class
