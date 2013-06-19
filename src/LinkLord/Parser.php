@@ -2,12 +2,15 @@
 /**
  * LinkLord - A tiny lib for extracting DOM's links
  *
- * @author Ricardo Cruz <piradoiv@gmail.com>
+ * PHP version 5.4
+ *
+ * @category  Library
+ * @package   PiradoIV\Html\LinkLord
+ * @author    Ricardo Cruz <piradoiv@gmail.com>
  * @copyright 2013 Ricardo Cruz
- * @link http://twitter.com/PiradoIV
- * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
- * @package PiradoIV\Html\LinkLord
+ * @license   http://opensource.org/licenses/MIT The MIT License
+ * @version   GIT: release/1.0
+ * @link      http://twitter.com/PiradoIV
  *
  * The MIT License (MIT)
  *
@@ -33,42 +36,61 @@ namespace PiradoIV\Html\LinkLord;
 
 use \Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * Parser class
+ *
+ * @category  Library
+ * @package   PiradoIV\Html\LinkLord
+ * @author    Ricardo Cruz <piradoiv@gmail.com>
+ * @copyright 2013 Ricardo Cruz
+ * @license   http://opensource.org/licenses/MIT The MIT License
+ * @version   Release: 1.0
+ * @link      http://twitter.com/PiradoIV
+ */
 class Parser
 {
-    private $crawler;
-    private $links;
+    private $_crawler;
+    private $_links;
 
+    /**
+     * Constructor of the class
+     * 
+     * @param string $string The HTML string to be parsed
+     */
     public function __construct($string = '')
     {
-        $this->crawler = new Crawler($string);
-        $this->links = array();
+        $this->_crawler = new Crawler($string);
+        $this->_links = array();
     }
 
     /**
      * Gets an array of links objects from the DOM
+     * 
      * @return array An array of link nodes
      */
     public function getLinks()
     {
-        $this->crawler->filter('a')->each(
+        $this->_crawler->filter('a')->each(
             function ($node, $i) {
                 $node->isNoFollow = $this->isLinkNoFollow($node);
                 $node->isImage    = $this->isLinkImage($node);
                 $node->anchorText = $this->getAnchorText($node);
 
-                array_push($this->links, $node);
+                array_push($this->_links, $node);
             }
         );
 
-        return $this->links;
+        return $this->_links;
     }
 
     /**
      * Checks if a node link has the rel="_nofollow" attribute
-     * @param  node  $node The link node to check
+     * 
+     * @param node $node The link node to check
+     * 
      * @return boolean     True if it's NoFollow, False otherwise
      */
-    private function isLinkNoFollow($node)
+    public function isLinkNoFollow($node)
     {
         $rel = strtolower($node->attr('rel'));
         if ($rel == '_nofollow') {
@@ -80,10 +102,12 @@ class Parser
 
     /**
      * Checks if a link's node contains a children image
-     * @param  node  $node The link node to check
-     * @return boolean     True if it's an image, False otherwise
+     * 
+     * @param node $node The link node to check
+     * 
+     * @return boolean True if it's an image, False otherwise
      */
-    private function isLinkImage($node)
+    public function isLinkImage($node)
     {
         $img = $node->filter('img');
 
@@ -96,10 +120,12 @@ class Parser
 
     /**
      * Returns the anchor text of a link's node
-     * @param  node $node The link node to use
-     * @return string     The anchor text, [IMAGE] if it's an image
+     * 
+     * @param node $node The link node to use
+     * 
+     * @return string The anchor text, [IMAGE] if it's an image
      */
-    private function getAnchorText($node)
+    public function getAnchorText($node)
     {
         $anchorText = $node->text();
         if ($node->isImage) {
@@ -112,13 +138,14 @@ class Parser
     /**
      * Gets an aprox. counter of words on the DOM, it currently just counts
      * the words inside "P" (Paragraph) tags
+     * 
      * @return integer The counter of found words
      */
     public function getWordsCounter()
     {
         $counter = 0;
 
-        foreach ($this->crawler->filter('p') as $p) {
+        foreach ($this->_crawler->filter('p') as $p) {
             $text = $p->textContent;
             $counter += str_word_count($text);
         }
@@ -126,10 +153,17 @@ class Parser
         return $counter;
     }
 
+    /**
+     * Returns the counter of mentions
+     * 
+     * @param array $possibleMentions An array of possible mentions
+     * 
+     * @return integer The result counter
+     */
     public function getMentionsFromArray($possibleMentions = array())
     {
         $counter = 0;
-        $text = $this->crawler->text();
+        $text = $this->_crawler->text();
 
         foreach ($possibleMentions as $mention) {
             $pattern = "/[ ,]{$mention}/i";
