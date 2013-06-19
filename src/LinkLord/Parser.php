@@ -50,13 +50,14 @@ class Parser
      */
     public function getLinks()
     {
+        $context = &$this;
         $this->crawler->filter('a')->each(
-            function ($node, $i) {
-                $node->isNoFollow = $this->isLinkNoFollow($node);
-                $node->isImage    = $this->isLinkImage($node);
-                $node->anchorText = $this->getAnchorText($node);
+            function ($node, $i) use ($context) {
+                $node->isNoFollow = $context->isLinkNoFollow($node);
+                $node->isImage    = $context->isLinkImage($node);
+                $node->anchorText = $context->getAnchorText($node);
 
-                array_push($this->links, $node);
+                array_push($context->links, $node);
             }
         );
 
