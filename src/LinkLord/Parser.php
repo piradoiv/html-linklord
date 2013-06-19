@@ -49,8 +49,8 @@ use \Symfony\Component\DomCrawler\Crawler;
  */
 class Parser
 {
-    private $_crawler;
-    private $_links;
+    private $crawler;
+    private $links;
 
     /**
      * Constructor of the class
@@ -59,8 +59,8 @@ class Parser
      */
     public function __construct($string = '')
     {
-        $this->_crawler = new Crawler($string);
-        $this->_links = array();
+        $this->crawler = new Crawler($string);
+        $this->links = array();
     }
 
     /**
@@ -70,17 +70,17 @@ class Parser
      */
     public function getLinks()
     {
-        $this->_crawler->filter('a')->each(
+        $this->crawler->filter('a')->each(
             function ($node, $i) {
                 $node->isNoFollow = $this->isLinkNoFollow($node);
                 $node->isImage    = $this->isLinkImage($node);
                 $node->anchorText = $this->getAnchorText($node);
 
-                array_push($this->_links, $node);
+                array_push($this->links, $node);
             }
         );
 
-        return $this->_links;
+        return $this->links;
     }
 
     /**
@@ -145,7 +145,7 @@ class Parser
     {
         $counter = 0;
 
-        foreach ($this->_crawler->filter('p') as $p) {
+        foreach ($this->crawler->filter('p') as $p) {
             $text = $p->textContent;
             $counter += str_word_count($text);
         }
@@ -163,7 +163,7 @@ class Parser
     public function getMentionsFromArray($possibleMentions = array())
     {
         $counter = 0;
-        $text = $this->_crawler->text();
+        $text = $this->crawler->text();
 
         foreach ($possibleMentions as $mention) {
             $pattern = "/[ ,]{$mention}/i";
