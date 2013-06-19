@@ -2,12 +2,15 @@
 /**
  * LinkLord - A tiny lib for extracting DOM's links
  *
- * @author Ricardo Cruz <piradoiv@gmail.com>
+ * PHP version 5.4
+ *
+ * @category  Library
+ * @package   PiradoIV\Html\LinkLord
+ * @author    Ricardo Cruz <piradoiv@gmail.com>
  * @copyright 2013 Ricardo Cruz
- * @link http://twitter.com/PiradoIV
- * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
- * @package PiradoIV\Html\LinkLord
+ * @license   http://opensource.org/licenses/MIT The MIT License
+ * @version   GIT: release/1.0
+ * @link      http://twitter.com/PiradoIV
  *
  * The MIT License (MIT)
  *
@@ -33,11 +36,27 @@ namespace PiradoIV\Html\LinkLord;
 
 use \Symfony\Component\DomCrawler\Crawler;
 
+/**
+ * Parser class
+ *
+ * @category  Library
+ * @package   PiradoIV\Html\LinkLord
+ * @author    Ricardo Cruz <piradoiv@gmail.com>
+ * @copyright 2013 Ricardo Cruz
+ * @license   http://opensource.org/licenses/MIT The MIT License
+ * @version   Release: 1.0
+ * @link      http://twitter.com/PiradoIV
+ */
 class Parser
 {
     private $crawler;
     private $links;
 
+    /**
+     * Constructor of the class
+     * 
+     * @param string $string The HTML string to be parsed
+     */
     public function __construct($string = '')
     {
         $this->crawler = new Crawler($string);
@@ -46,6 +65,7 @@ class Parser
 
     /**
      * Gets an array of links objects from the DOM
+     * 
      * @return array An array of link nodes
      */
     public function getLinks()
@@ -66,7 +86,9 @@ class Parser
 
     /**
      * Checks if a node link has the rel="_nofollow" attribute
-     * @param  node  $node The link node to check
+     * 
+     * @param node $node The link node to check
+     * 
      * @return boolean     True if it's NoFollow, False otherwise
      */
     public function isLinkNoFollow($node)
@@ -81,8 +103,10 @@ class Parser
 
     /**
      * Checks if a link's node contains a children image
-     * @param  node  $node The link node to check
-     * @return boolean     True if it's an image, False otherwise
+     * 
+     * @param node $node The link node to check
+     * 
+     * @return boolean True if it's an image, False otherwise
      */
     public function isLinkImage($node)
     {
@@ -97,8 +121,10 @@ class Parser
 
     /**
      * Returns the anchor text of a link's node
-     * @param  node $node The link node to use
-     * @return string     The anchor text, [IMAGE] if it's an image
+     * 
+     * @param node $node The link node to use
+     * 
+     * @return string The anchor text, [IMAGE] if it's an image
      */
     public function getAnchorText($node)
     {
@@ -113,6 +139,7 @@ class Parser
     /**
      * Gets an aprox. counter of words on the DOM, it currently just counts
      * the words inside "P" (Paragraph) tags
+     * 
      * @return integer The counter of found words
      */
     public function getWordsCounter()
@@ -127,6 +154,13 @@ class Parser
         return $counter;
     }
 
+    /**
+     * Returns the counter of mentions
+     * 
+     * @param array $possibleMentions An array of possible mentions
+     * 
+     * @return integer The result counter
+     */
     public function getMentionsFromArray($possibleMentions = array())
     {
         $counter = 0;
