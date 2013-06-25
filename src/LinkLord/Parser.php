@@ -180,7 +180,8 @@ class Parser
         }
 
         foreach ($possibleMentions as $mention) {
-            $pattern = "/[ ,]{$mention}/i";
+            $mention = str_replace('/', '\/', $mention);
+            $pattern = "/{$mention}/i";
             $matches = array();
             $counter += preg_match_all($pattern, $text, $matches);
         }
