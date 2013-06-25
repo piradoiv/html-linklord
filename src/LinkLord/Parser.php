@@ -181,15 +181,15 @@ class Parser
             $this->getLinks();
         }
 
-        $counter = 0;
+        // Fetchs only the text from the HTML
         $text    = '';
-
         try {
             $text = $this->crawler->text();
         } catch (InvalidArgumentException $e) {
             // Leave text blank
         }
 
+        // Search mentions on the text
         foreach ($possibleMentions as $mention) {
             $mention = str_replace('/', '\/', $mention);
             $pattern = "/{$mention}/i";
@@ -197,6 +197,6 @@ class Parser
             $counter += preg_match_all($pattern, $text, $matches);
         }
 
-        return $counter;
+        return 0;
     }
 }
