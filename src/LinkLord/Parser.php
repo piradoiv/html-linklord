@@ -60,7 +60,6 @@ class Parser
     public function __construct($string = '')
     {
         $this->crawler = new Crawler($string);
-        $this->links = array();
     }
 
     /**
@@ -71,6 +70,11 @@ class Parser
     public function getLinks()
     {
         $context = &$this;
+
+        if (!$context->links) {
+            $context->links = array();
+        }
+
         $this->crawler->filter('a')->each(
             function ($node, $i) use ($context) {
                 $node->isNoFollow = $context->isLinkNoFollow($node);
