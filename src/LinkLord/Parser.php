@@ -51,6 +51,7 @@ class Parser
 {
     public $crawler;
     public $links;
+    public $mentions;
 
     /**
      * Constructor of the class
@@ -174,6 +175,12 @@ class Parser
      */
     public function getMentionsFromArray($possibleMentions = array())
     {
+        // First of all, we need to fetch links to avoid some anchor text
+        // on links beign detected as a mention
+        if (!$this->links) {
+            $this->getLinks();
+        }
+
         $counter = 0;
         $text    = '';
 
