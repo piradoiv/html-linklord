@@ -206,7 +206,13 @@ class Parser
         // Remove mentions found in links
         foreach ($this->mentions as $index => $mention) {
             foreach ($this->links as $link) {
-                $anchorText = $link->text();
+                $anchorText = '';
+                try {
+                    $anchorText = $link->text();
+                } catch(InvalidArgumentException $e) {
+                    continue;
+                }
+                
                 $pattern = str_replace('/', '\/', $mention);
                 $pattern = "/{$pattern}/i";
                 if (preg_match($pattern, $anchorText)) {
