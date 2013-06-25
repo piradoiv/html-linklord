@@ -182,7 +182,7 @@ class Parser
         }
 
         // Fetchs only the text from the HTML
-        $text    = '';
+        $text = '';
         try {
             $text = $this->crawler->text();
         } catch (InvalidArgumentException $e) {
