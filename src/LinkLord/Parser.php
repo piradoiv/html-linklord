@@ -133,12 +133,10 @@ class Parser
      */
     public function getAnchorText($node)
     {
-        $anchorText = '';
-
         try {
             $anchorText = $node->text();
-        } catch (InvalidArgumentException $e) {
-            // Leave text blank
+        } catch (\Exception $e) {
+            $anchorText = '';
         }
 
         if ($node->isImage) {
@@ -175,20 +173,20 @@ class Parser
      */
     public function getMentions($possibleMentions = array())
     {
-        // First of all, we need to fetch links to avoid some anchor text
-        // on links beign detected as a mention
+        // Re-initialize mentions array
+        $this->mentions = array();
+
+        // We need to fetch links to avoid some anchor text on links
+        // beign detected as a mention
         if (!$this->links) {
             $this->getLinks();
         }
 
-        $this->mentions = array();
-
         // Fetchs only the text from the HTML
-        $text = '';
         try {
             $text = $this->crawler->text();
-        } catch (InvalidArgumentException $e) {
-            // Leave text blank
+        } catch(\Exception $e) {
+            $text = '';
         }
 
         // Search mentions on the text
@@ -206,12 +204,7 @@ class Parser
         // Remove mentions found in links
         foreach ($this->mentions as $index => $mention) {
             foreach ($this->links as $link) {
-                $anchorText = '';
-                try {
-                    $anchorText = $link->text();
-                } catch(InvalidArgumentException $e) {
-                    continue;
-                }
+                $anchorText = $anchorText = $link->text();
                 
                 $pattern = str_replace('/', '\/', $mention);
                 $pattern = "/{$pattern}/i";

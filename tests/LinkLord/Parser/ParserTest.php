@@ -109,4 +109,15 @@ HTML;
 
         $this->assertEquals(2, count($result));
     }
+
+    public function testExceptionOnEmptyText()
+    {
+        $html = '';
+        $parser = new Parser($html);
+        $possibleMentions = array('testing');
+
+        $result = $parser->getMentions($possibleMentions);
+        
+        $this->assertEquals(array(), $result);
+    }
 }
