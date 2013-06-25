@@ -164,7 +164,13 @@ class Parser
     public function getMentionsFromArray($possibleMentions = array())
     {
         $counter = 0;
-        $text = $this->crawler->text();
+        $text    = '';
+
+        try {
+            $text = $this->crawler->text();
+        } catch (InvalidArgumentException $e) {
+            // Leave text blank
+        }
 
         foreach ($possibleMentions as $mention) {
             $pattern = "/[ ,]{$mention}/i";
