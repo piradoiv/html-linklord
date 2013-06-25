@@ -128,7 +128,14 @@ class Parser
      */
     public function getAnchorText($node)
     {
-        $anchorText = $node->text();
+        $anchorText = '';
+
+        try {
+            $anchorText = $node->text();
+        } catch (InvalidArgumentException $e) {
+            // Leave text blank
+        }
+
         if ($node->isImage) {
             $anchorText = "[IMAGE]";
         }
