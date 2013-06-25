@@ -171,9 +171,9 @@ class Parser
      * 
      * @param array $possibleMentions An array of possible mentions
      * 
-     * @return integer The result counter
+     * @return array An array of found mentions
      */
-    public function getMentionsFromArray($possibleMentions = array())
+    public function getMentions($possibleMentions = array())
     {
         // First of all, we need to fetch links to avoid some anchor text
         // on links beign detected as a mention
