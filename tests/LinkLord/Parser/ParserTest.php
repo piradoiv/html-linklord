@@ -105,6 +105,8 @@ HTML;
             'Pirado IV Website'
         );
 
-        $this->assertEquals(2, $parser->getMentionsFromArray($possibleMentions));
+        $result = $parser->getMentionsFromArray($possibleMentions);
+
+        $this->assertEquals(2, count($result));
     }
 }
