@@ -181,6 +181,8 @@ class Parser
             $this->getLinks();
         }
 
+        $this->mentions = array();
+
         // Fetchs only the text from the HTML
         $text = '';
         try {
@@ -194,9 +196,25 @@ class Parser
             $mention = str_replace('/', '\/', $mention);
             $pattern = "/{$mention}/i";
             $matches = array();
-            $counter += preg_match_all($pattern, $text, $matches);
+            preg_match_all($pattern, $text, $matches);
+
+            foreach ($matches[0] as $m) {
+                array_push($this->mentions, $m);
+            }
         }
 
-        return 0;
+        // Remove mentions found in links
+        foreach ($this->mentions as $index => $mention) {
+            foreach ($this->links as $link) {
+                $anchorText = $link->text();
+                $pattern = str_replace('/', '\/', $mention);
+                $pattern = "/{$pattern}/i";
+                if (preg_match($pattern, $anchorText)) {
+                    unset($this->mentions[$index]);
+                }
+            }
+        }
+
+        return $this->mentions;
     }
 }
