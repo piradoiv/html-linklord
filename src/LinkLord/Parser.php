@@ -51,6 +51,7 @@ class Parser
 {
     public $crawler;
     public $links;
+    public $mentions;
 
     /**
      * Constructor of the class
@@ -60,7 +61,6 @@ class Parser
     public function __construct($string = '')
     {
         $this->crawler = new Crawler($string);
-        $this->links = array();
     }
 
     /**
@@ -71,6 +71,11 @@ class Parser
     public function getLinks()
     {
         $context = &$this;
+
+        if (!$context->links) {
+            $context->links = array();
+        }
+
         $this->crawler->filter('a')->each(
             function ($node, $i) use ($context) {
                 $node->isNoFollow = $context->isLinkNoFollow($node);
@@ -166,25 +171,50 @@ class Parser
      * 
      * @param array $possibleMentions An array of possible mentions
      * 
-     * @return integer The result counter
+     * @return array An array of found mentions
      */
-    public function getMentionsFromArray($possibleMentions = array())
+    public function getMentions($possibleMentions = array())
     {
-        $counter = 0;
-        $text    = '';
+        // First of all, we need to fetch links to avoid some anchor text
+        // on links beign detected as a mention
+        if (!$this->links) {
+            $this->getLinks();
+        }
 
+        $this->mentions = array();
+
+        // Fetchs only the text from the HTML
+        $text = '';
         try {
             $text = $this->crawler->text();
         } catch (InvalidArgumentException $e) {
             // Leave text blank
         }
 
+        // Search mentions on the text
         foreach ($possibleMentions as $mention) {
-            $pattern = "/[ ,]{$mention}/i";
+            $mention = str_replace('/', '\/', $mention);
+            $pattern = "/{$mention}/i";
             $matches = array();
-            $counter += preg_match_all($pattern, $text, $matches);
+            preg_match_all($pattern, $text, $matches);
+
+            foreach ($matches[0] as $m) {
+                array_push($this->mentions, $m);
+            }
         }
 
-        return $counter;
+        // Remove mentions found in links
+        foreach ($this->mentions as $index => $mention) {
+            foreach ($this->links as $link) {
+                $anchorText = $link->text();
+                $pattern = str_replace('/', '\/', $mention);
+                $pattern = "/{$pattern}/i";
+                if (preg_match($pattern, $anchorText)) {
+                    unset($this->mentions[$index]);
+                }
+            }
+        }
+
+        return $this->mentions;
     }
 }

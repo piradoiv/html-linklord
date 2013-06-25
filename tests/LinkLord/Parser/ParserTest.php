@@ -102,10 +102,11 @@ HTML;
         $parser = new Parser($html);
         $possibleMentions = array(
             'piradoiv.com',
-            'www.piradoiv.com',
             'Pirado IV Website'
         );
 
-        $this->assertEquals(3, $parser->getMentionsFromArray($possibleMentions));
+        $result = $parser->getMentions($possibleMentions);
+
+        $this->assertEquals(2, count($result));
     }
 }
