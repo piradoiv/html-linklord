@@ -8,7 +8,7 @@ Micro library to extract links from an HTML string.
 How to install
 --------------
 
-The easies way to install the library is using [Composer](http://getcomposer.org/).
+The easiest way to install the library is using [Composer](http://getcomposer.org/).
 
 ```javascript
 {
