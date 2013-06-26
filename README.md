@@ -33,7 +33,6 @@ $links = $parser->getLinks();
 foreach ($links as $node) {
   echo "{$node->anchorText}\n";
 }
-?>
 ```
 
 Link nodes also includes other variables like _isNoFollow_ and _isImage_.
