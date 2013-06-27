@@ -133,11 +133,7 @@ class Parser
      */
     public function getAnchorText($node)
     {
-        try {
-            $anchorText = $node->text();
-        } catch (\Exception $e) {
-            $anchorText = '';
-        }
+        $anchorText = $this->getText($node);
 
         if ($node->isImage) {
             $anchorText = "[IMAGE]";
@@ -183,11 +179,7 @@ class Parser
         }
 
         // Fetchs only the text from the HTML
-        try {
-            $text = $this->crawler->text();
-        } catch(\Exception $e) {
-            $text = '';
-        }
+        $text = $this->getText();
 
         // Search mentions on the text
         foreach ($possibleMentions as $mention) {
@@ -204,7 +196,7 @@ class Parser
         // Remove mentions found in links
         foreach ($this->mentions as $index => $mention) {
             foreach ($this->links as $link) {
-                $anchorText = $anchorText = $link->text();
+                $anchorText = $this->getText($link);
                 
                 $pattern = str_replace('/', '\/', $mention);
                 $pattern = "/{$pattern}/i";
@@ -215,5 +207,28 @@ class Parser
         }
 
         return $this->mentions;
+    }
+
+    /**
+     * Extracts the text from the entire HTML or, if a node is specified,
+     * returns just the text from the node.
+     *
+     * @param  $node Optional node to extract the text from
+     * 
+     * @return string The text without HTML
+     */
+    public function getText($node = null)
+    {
+        try {
+            if ($node) {
+                $text = $node->text();
+            } else {
+                $text = $this->crawler->text();
+            }
+        } catch (\Exception $e) {
+            $text = '';
+        }
+
+        return $text;
     }
 }
