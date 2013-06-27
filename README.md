@@ -3,7 +3,7 @@ LinkLord
 
 [![Build Status](https://travis-ci.org/piradoiv/html-linklord.png?branch=master)](https://travis-ci.org/piradoiv/html-linklord)
 
-Micro library to extract links from an HTML string.
+PHP Micro library to extract links from an HTML string.
 
 How to install
 --------------
@@ -22,7 +22,6 @@ How to use it
 -------------
 
 ```php
-<?php
 # Require Composer autoloader
 require 'vendor/autoload.php';
 
@@ -35,4 +34,35 @@ foreach ($links as $node) {
 }
 ```
 
-Link nodes also includes other variables like _isNoFollow_ and _isImage_.
+Other features
+--------------
+
+__Follow/Nofollow__
+
+LinkLord is able to know if the links are followed or not.
+
+```php
+$node->isNoFollow;
+```
+
+__What about images?__
+
+If the link have an image child, it will be detected.
+
+```php
+$node->isImage;
+```
+
+__Mentions__
+
+Looking for mentions on the code?, LinkLord is able to recognise mentions on
+the text, this means if there is a 'www.example.com' on the text __and__ is
+not linked, this will count as a mention.
+
+```php
+$possibleMentions = array('www.example.com', 'www.anotherdomain.com');
+$mentions = $parser->getMentions($possibleMentions);
+```
+
+Enjoy! :)
+
