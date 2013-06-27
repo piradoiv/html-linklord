@@ -99,7 +99,7 @@ class Parser
     public function isLinkNoFollow($node)
     {
         $rel = strtolower($node->attr('rel'));
-        if ($rel == '_nofollow') {
+        if ($rel == '_nofollow' || $rel == 'nofollow') {
             return true;
         } else {
             return false;

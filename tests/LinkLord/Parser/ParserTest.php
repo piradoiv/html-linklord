@@ -123,4 +123,21 @@ HTML;
         
         $this->assertEquals(array(), $result);
     }
+
+    public function testNofollowVariants()
+    {
+        $html = <<<HTML
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" rel="_nofollow" target="_blank">Pirado IV website</a> sit amet</p>
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" rel="nofollow" target="_blank">Pirado IV website</a> sit amet</p>
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" target="_blank">Pirado IV website</a> sit amet</p>
+HTML;
+
+        $parser = new Parser($html);
+        $links = $parser->getLinks();
+
+        $this->assertTrue($links[0]->isNoFollow, '_nofollow should be detected');
+        $this->assertTrue($links[1]->isNoFollow, 'nofollow should be detected');
+        $this->assertFalse($links[2]->isNoFollow, "there isn't nofollow here");
+        
+    }
 }
