@@ -6,7 +6,7 @@
  * @copyright 2013 Ricardo Cruz
  * @link http://twitter.com/PiradoIV
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
+ * @version 1.0.1
  * @package PiradoIV\Html\LinkLord
  *
  * The MIT License (MIT)
