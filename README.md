@@ -18,6 +18,9 @@ The easiest way to install the library is using [Composer](http://getcomposer.or
 }
 ```
 
+Please notice the library requires at least PHP 5.3 in order to work (tested on
+__5.3.26__ and __5.4.16__)
+
 How to use it
 -------------
 
@@ -39,7 +42,7 @@ Other features
 
 __Follow/Nofollow__
 
-LinkLord is able to know if the links are followed or not.
+LinkLord is able to know whether the links are followed or not.
 
 ```php
 $node->isNoFollow;
@@ -47,7 +50,7 @@ $node->isNoFollow;
 
 __What about images?__
 
-If the link have an image child, it will be detected.
+If the link has an image child, it will be detected.
 
 ```php
 $node->isImage;

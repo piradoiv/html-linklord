@@ -2,14 +2,14 @@
 /**
  * LinkLord - A tiny lib for extracting DOM's links
  *
- * PHP version 5.4
+ * PHP version 5.3
  *
  * @category  Library
  * @package   PiradoIV\Html\LinkLord
  * @author    Ricardo Cruz <piradoiv@gmail.com>
  * @copyright 2013 Ricardo Cruz
  * @license   http://opensource.org/licenses/MIT The MIT License
- * @version   GIT: release/1.0.1
+ * @version   GIT: release/1.1.0
  * @link      http://twitter.com/PiradoIV
  *
  * The MIT License (MIT)
