@@ -9,7 +9,7 @@
  * @author    Ricardo Cruz <piradoiv@gmail.com>
  * @copyright 2013 Ricardo Cruz
  * @license   http://opensource.org/licenses/MIT The MIT License
- * @version   GIT: release/1.1.0
+ * @version   GIT: release/1.1.1
  * @link      http://twitter.com/PiradoIV
  * 
  * The MIT License (MIT)
