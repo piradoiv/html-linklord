@@ -9,7 +9,7 @@
  * @author    Ricardo Cruz <piradoiv@gmail.com>
  * @copyright 2013 Ricardo Cruz
  * @license   http://opensource.org/licenses/MIT The MIT License
- * @version   GIT: release/1.1.0
+ * @version   GIT: release/1.1.1
  * @link      http://twitter.com/PiradoIV
  * 
  * The MIT License (MIT)
@@ -122,5 +122,22 @@ HTML;
         $result = $parser->getMentions($possibleMentions);
         
         $this->assertEquals(array(), $result);
+    }
+
+    public function testNofollowVariants()
+    {
+        $html = <<<HTML
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" rel="_nofollow" target="_blank">Pirado IV website</a> sit amet</p>
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" rel="nofollow" target="_blank">Pirado IV website</a> sit amet</p>
+        <p>Lorem ipsum <a href="http://www.piradoiv.com/" target="_blank">Pirado IV website</a> sit amet</p>
+HTML;
+
+        $parser = new Parser($html);
+        $links = $parser->getLinks();
+
+        $this->assertTrue($links[0]->isNoFollow, '_nofollow should be detected');
+        $this->assertTrue($links[1]->isNoFollow, 'nofollow should be detected');
+        $this->assertFalse($links[2]->isNoFollow, "there isn't nofollow here");
+        
     }
 }
