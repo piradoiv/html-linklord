@@ -18,6 +18,9 @@ The easiest way to install the library is using [Composer](http://getcomposer.or
 }
 ```
 
+Please notice the library requires at least PHP 5.3 in order to work (tested on
+__5.3.26__ and __5.4.16__)
+
 How to use it
 -------------
 
