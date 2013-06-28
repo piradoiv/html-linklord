@@ -70,6 +70,6 @@ $mentions = $parser->getMentions($possibleMentions);
 Contact me
 ----------
 
-If you need more examples or help, please contact me on [http://twitter.com/PiradoIV/](Twitter at @PiradoIV) :)
+If you need more examples or help, please contact me on Twitter, [@PiradoIV](http://twitter.com/PiradoIV/) :)
 
 Enjoy! :)
