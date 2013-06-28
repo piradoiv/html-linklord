@@ -67,5 +67,9 @@ $possibleMentions = array('www.example.com', 'www.anotherdomain.com');
 $mentions = $parser->getMentions($possibleMentions);
 ```
 
-Enjoy! :)
+Contact me
+----------
 
+If you need more examples or help, please contact me on Twitter, [@PiradoIV](http://twitter.com/PiradoIV/) :)
+
+Enjoy! :)
